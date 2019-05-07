@@ -1,4 +1,4 @@
-package com.example.channelhandler;
+package com.example.http;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -8,7 +8,6 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
 import java.net.URI;
-import java.net.URL;
 
 /**
  * 自定义处理器

@@ -1,6 +1,6 @@
-package com.example;
+package com.example.http;
 
-import com.example.channelhandler.TestHttpServerHandler;
+import com.example.http.TestHttpServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpServerCodec;
