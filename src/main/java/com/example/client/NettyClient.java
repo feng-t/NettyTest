@@ -25,7 +25,7 @@ public class NettyClient {
             bootstrap.group(loopGroup).channel(NioSocketChannel.class).
                     handler(new ClientInitializer());
 
-            Channel channel = bootstrap.connect("localhost", 8888).channel();
+            Channel channel = bootstrap.connect("localhost", 6666).channel();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             for (; ; ) {
                 String line = reader.readLine();

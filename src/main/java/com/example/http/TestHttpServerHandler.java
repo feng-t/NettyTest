@@ -17,11 +17,9 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         if(msg instanceof HttpRequest){
             HttpRequest request = (HttpRequest) msg;
-            System.out.println("请求方法名："+request.method().name());
             URI url = new URI(request.uri());
 
             if ("/favicon.ico".equals(url.getPath())) {
-                System.out.println("接收到/ico");
                 return;
             }
             ByteBuf content = Unpooled.copiedBuffer("hello world", CharsetUtil.UTF_8);
