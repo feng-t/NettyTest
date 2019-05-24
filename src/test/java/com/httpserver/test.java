@@ -1,4 +1,4 @@
-package com.test;
+package com.httpserver;
 
 import java.math.BigDecimal;
 

@@ -15,10 +15,11 @@ import java.net.URI;
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
-        if(msg instanceof HttpRequest){
+        //连接进来，进行处理，TODO 处理链
+        if (msg instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) msg;
             URI url = new URI(request.uri());
-
+            System.out.println(url);
             if ("/favicon.ico".equals(url.getPath())) {
                 return;
             }
