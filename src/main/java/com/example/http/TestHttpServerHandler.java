@@ -11,8 +11,10 @@ import java.net.URI;
 
 /**
  * 自定义处理器
+ * @author feng
  */
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
+    private String ico="/favicon.ico";
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         //连接进来，进行处理，TODO 处理链
@@ -20,11 +22,12 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
             HttpRequest request = (HttpRequest) msg;
             URI url = new URI(request.uri());
             System.out.println(url);
-            if ("/favicon.ico".equals(url.getPath())) {
+            if (ico.equals(url.getPath())) {
                 return;
             }
             ByteBuf content = Unpooled.copiedBuffer("hello world", CharsetUtil.UTF_8);
-            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
+            FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
+
             response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
             response.headers().set(HttpHeaderNames.CONTENT_LENGTH, content.readableBytes());
             ctx.writeAndFlush(response);
