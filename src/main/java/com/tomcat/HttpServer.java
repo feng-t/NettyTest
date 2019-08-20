@@ -15,8 +15,8 @@ import java.net.Socket;
  * @author feng
  */
 public class HttpServer {
-    public static final String webroot = System.getProperty("user.dir") + File.separator + "webroot";
-    private static final String stop = "/stop";
+    public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "WEB_ROOT";
+    private static final String STOP = "/STOP";
     private boolean shutdown = false;
 
     public static void main(String[] args) throws IOException {
@@ -47,10 +47,9 @@ public class HttpServer {
                 response.setRequest(request);
                 response.sendStaticResource();
                 socket.close();
-                shutdown = stop.equals(request.getUri());
+                shutdown = STOP.equals(request.getUri());
             } catch (IOException e) {
                 e.printStackTrace();
-                continue;
             }
         }
     }

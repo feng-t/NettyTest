@@ -4,14 +4,11 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.FullHttpRequest;
 
 public class HttpServer {
 
-    public HttpServer Start(int port) throws InterruptedException {
-
-        Start(port, new DefaultHandlers());
-        return this;
+    public HttpServer start(int port) throws InterruptedException {
+        return start(port, new DefaultHandlers());
     }
 
     /**
@@ -19,7 +16,7 @@ public class HttpServer {
      * @param childHandlers
      * @throws InterruptedException
      */
-    public HttpServer Start(int port, ChannelHandler... childHandlers) throws InterruptedException {
+    private HttpServer start(int port, ChannelHandler... childHandlers) throws InterruptedException {
         //接收连接
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         //处理连接，真正对连接的处理

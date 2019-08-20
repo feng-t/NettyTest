@@ -29,7 +29,7 @@ public class Response {
         FileInputStream fs = null;
         try {
             String uri = request.getUri() == null ? "index" : "/".equals(request.getUri()) ? "index" : request.getUri();
-            File file = new File(HttpServer.webroot, uri);
+            File file = new File(HttpServer.WEB_ROOT, uri);
             if (file.exists()) {
                 fs = new FileInputStream(file);
                 int ch = fs.read(bytes, 0, buff_size);
