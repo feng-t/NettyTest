@@ -1,24 +1,30 @@
 package com.nettytomcat;
 
+import com.nettytomcat.handler.DefaultHandler;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
-
-import java.io.File;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class NettyServer {
-    public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "WEB_ROOT";
-    private static final String STOP = "/STOP";
+
     private boolean shutdown = false;
 
     public static void main(String[] args) {
-
+        new NettyServer().await(9900,new DefaultHandler());
     }
 
-    public void await(int port) {
+    private void await(int port, ChannelHandler... channelHandlers) {
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup wokerGroup = new NioEventLoopGroup();
-        try{
-
-        }catch (Exception e){
+        try {
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            ServerBootstrap channel = bootstrap.group(bossGroup, wokerGroup).channel(NioServerSocketChannel.class);
+            for (ChannelHandler handler : channelHandlers) {
+                channel.childHandler(handler);
+            }
+            bootstrap.bind(port).sync().channel().closeFuture().sync();
+        } catch (Exception e) {
             bossGroup.shutdownGracefully();
             wokerGroup.shutdownGracefully();
         }
