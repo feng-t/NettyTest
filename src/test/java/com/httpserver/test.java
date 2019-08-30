@@ -1,16 +1,37 @@
 package com.httpserver;
 
-import java.math.BigDecimal;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
 
 public class test {
     public static void main(String[] args) {
-        BigDecimal b50 = new BigDecimal("50");
+        FileInputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        try {
+            inputStream = new FileInputStream("E:\\work\\text.txt");
+            outputStream = new FileOutputStream("E:\\work\\text1.txt");
+            ByteBuffer buffer = ByteBuffer.allocate(1024 * 16);
+            inputStream.getChannel().read(buffer);
+            buffer.put("asdfakkkkkkkkkkkkkkkkkkkkkkkkkkkk".getBytes());
+            buffer.flip();
+            while (buffer.hasRemaining()) {
+                outputStream.write(buffer.get());
+            }
 
-        BigDecimal b1_5 = new BigDecimal("1.5");
-        BigDecimal divide = b50.divide(b1_5, 2);
-        System.out.println(divide.toString());
-        System.out.println(50 / 1.5);
-        System.out.println(b50.compareTo(b1_5)>0);
-        System.out.println(b50.multiply(b1_5));
+            buffer.compact();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (Exception ignored) {
+            }
+        }
     }
 }
